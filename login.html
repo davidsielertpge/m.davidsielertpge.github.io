@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script type="text/javascript">
+    var OneTrust = {
+      dataSubjectParams: {
+        id: "david@sielert.com",
+        isAnonymous: false,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYXZpZEBzaWVsZXJ0LmNvbSJ9.SzFyGwkVom9xX-P3loAqWhiz9J8HRAjlHV_4IfXDuE8'
+      }
+    };
+  </script>
+  <!-- OneTrust Cookies Consent Notice start for davidsielertpge.github.io -->
+  <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8"
+    data-domain-script="0192fd4d-030b-7c9f-ae48-6ee139988bdf"></script>
+  <script type="text/javascript">
+    function OptanonWrapper() {
+      // Get initial OnetrustActiveGroups ids
+      if (typeof OptanonWrapperCount == "undefined") {
+        otGetInitialGrps();
+      }
+
+      //Delete cookies
+      otDeleteCookie(otIniGrps);
+
+      // Assign OnetrustActiveGroups to custom variable
+      function otGetInitialGrps() {
+        OptanonWrapperCount = '';
+        otIniGrps = OnetrustActiveGroups;
+        // console.log("otGetInitialGrps", otIniGrps)
+      }
+
+      function otDeleteCookie(iniOptGrpId) {
+        var otDomainGrps = JSON.parse(JSON.stringify(Optanon.GetDomainData().Groups));
+        var otDeletedGrpIds = otGetInactiveId(iniOptGrpId, OnetrustActiveGroups);
+        if (otDeletedGrpIds.length != 0 && otDomainGrps.length != 0) {
+          for (var i = 0; i < otDomainGrps.length; i++) {
+            //Check if CustomGroupId matches
+            if (otDomainGrps[i]['CustomGroupId'] != '' && otDeletedGrpIds.includes(otDomainGrps[i]['CustomGroupId'])) {
+              for (var j = 0; j < otDomainGrps[i]['Cookies'].length; j++) {
+                // console.log("otDeleteCookie",otDomainGrps[i]['Cookies'][j]['Name'])
+                //Delete cookie
+                eraseCookie(otDomainGrps[i]['Cookies'][j]['Name']);
+              }
+            }
+
+            //Check if Hostid matches
+            if (otDomainGrps[i]['Hosts'].length != 0) {
+              for (var j = 0; j < otDomainGrps[i]['Hosts'].length; j++) {
+                //Check if HostId presents in the deleted list and cookie array is not blank
+                if (otDeletedGrpIds.includes(otDomainGrps[i]['Hosts'][j]['HostId']) && otDomainGrps[i]['Hosts'][j]['Cookies'].length != 0) {
+                  for (var k = 0; k < otDomainGrps[i]['Hosts'][j]['Cookies'].length; k++) {
+                    //Delete cookie
+                    eraseCookie(otDomainGrps[i]['Hosts'][j]['Cookies'][k]['Name']);
+                  }
+                }
+              }
+            }
+
+          }
+        }
+        otGetInitialGrps(); //Reassign new group ids
+      }
+
+      //Get inactive ids
+      function otGetInactiveId(customIniId, otActiveGrp) {
+        //Initial OnetrustActiveGroups
+        // console.log("otGetInactiveId",customIniId)
+        customIniId = customIniId.split(",");
+        customIniId = customIniId.filter(Boolean);
+
+        //After action OnetrustActiveGroups
+        otActiveGrp = otActiveGrp.split(",");
+        otActiveGrp = otActiveGrp.filter(Boolean);
+
+        var result = [];
+        for (var i = 0; i < customIniId.length; i++) {
+          if (otActiveGrp.indexOf(customIniId[i]) <= -1) {
+            result.push(customIniId[i]);
+          }
+        }
+        return result;
+      }
+
+      //Delete cookie
+      function eraseCookie(name) {
+        //Delete root path cookies
+        domainName = window.location.hostname;
+        document.cookie = name + '=; Max-Age=-99999999; Path=/;Domain=' + domainName;
+        document.cookie = name + '=; Max-Age=-99999999; Path=/;';
+
+        //Delete LSO incase LSO being used, cna be commented out.
+        localStorage.removeItem(name);
+
+        //Check for the current path of the page
+        pathArray = window.location.pathname.split('/');
+        //Loop through path hierarchy and delete potential cookies at each path.
+        for (var i = 0; i < pathArray.length; i++) {
+          if (pathArray[i]) {
+            //Build the path string from the Path Array e.g /site/login
+            var currentPath = pathArray.slice(0, i + 1).join('/');
+            document.cookie = name + '=; Max-Age=-99999999; Path=' + currentPath + ';Domain=' + domainName;
+            document.cookie = name + '=; Max-Age=-99999999; Path=' + currentPath + ';';
+            //Maybe path has a trailing slash!
+            document.cookie = name + '=; Max-Age=-99999999; Path=' + currentPath + '/;Domain=' + domainName;
+            document.cookie = name + '=; Max-Age=-99999999; Path=' + currentPath + '/;';
+
+
+          }
+        }
+
+      }
+    }
+  </script>
+  <style type="text/css">
+    code {
+      display: block;
+      white-space: pre-wrap
+    }
+  </style>
+  <!-- OneTrust Cookies Consent Notice end for davidsielertpge.github.io -->
+  <script type="text/plain" src="/advertising.js" class="optanon-category-C0004"></script>
+  <script type="text/plain" src="/analytics.js" class="optanon-category-C0002"></script>
+  <script type="text/plain" src="/functional.js" class="optanon-category-C0003"></script>
+  <script type="text/plain" src="/marketing.js" class="optanon-category-C0004"></script>
+  <script type="text/plain" src="/necessary.js" class="optanon-category-C0001"></script>
+</head>
+
+<body>
+  Welcome to David's Cookie Blocking Test Site
+  <h2> CRO Authenticated Consent</h2>
+  <a href="index.html">Home</a>
+
+  <button onclick="showCookies()">Show Active cookies</button>
+
+  <button onclick="clearOutputCookies()">Clear</button>
+  <!-- OneTrust Cookies Settings button start -->
+  <button id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</button>
+  <!-- OneTrust Cookies Settings button end -->
+  <div>
+    <h4>Active browser cookies</h4>
+    <code id="cookies" style="style=" white-space: pre-line""></code>
+  </div>
+  <h2>OT Cookie List</h2>
+  <!-- OneTrust Cookies List start -->
+  <div id="ot-sdk-cookie-policy"></div>
+  <!-- OneTrust Cookies List end -->
+  <script>
+    function getCookieNames() {
+      cookies = Array();
+      document.cookie.split("; ").forEach((val, index) => {
+        cookies.push(val.split("=")[0]);
+      });
+      return cookies
+    }
+
+    function showCookies() {
+      const output = document.getElementById("cookies");
+      output.textContent = `> ${getCookieNames().join("\n")}`;
+    }
+
+    (function () {
+      showCookies()
+
+      // https://my.onetrust.com/s/article/UUID-bc6c634c-b234-acc7-21d3-fa2819a6e679
+      window.addEventListener("OneTrustGroupsUpdated", event => {
+        console.log(`The following groups are now active: ${event.detail.join(", ")} `)
+        showCookies()
+      });
+      window.addEventListener("OTConsentApplied", event => {
+        console.log("The user has updated their consent.")
+        console.log(`Reference OnetrustActiveGroups for updated consent = ${OnetrustActiveGroups}`)
+      });
+    })();
+
+  </script>
+
+</body>
+
+</html>

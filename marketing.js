@@ -1,0 +1,1 @@
+document.cookie = "marketing-cookie=1234; SameSite=None; Secure";

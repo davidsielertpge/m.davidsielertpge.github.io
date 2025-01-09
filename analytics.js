@@ -1,0 +1,1 @@
+document.cookie = "analytics-cookie=1234; SameSite=None; Secure";

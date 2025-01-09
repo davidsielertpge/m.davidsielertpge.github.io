@@ -1,0 +1,1 @@
+document.cookie = "advertising-cookie=1234; SameSite=None; Secure";

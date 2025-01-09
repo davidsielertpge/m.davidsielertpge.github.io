@@ -1,0 +1,1 @@
+document.cookie = "functional-cookie=1234; SameSite=None; Secure";
